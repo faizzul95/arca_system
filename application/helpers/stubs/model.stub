@@ -1,0 +1,61 @@
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
+
+class %CLASS_MODEL_NAME%_model extends CT_Model
+{
+	public $table = '%TABLE%';
+	public $primary_key = '%PK%';
+	public $order = 'DESC';
+
+	// the fields that can be filled by insert/update
+	public $fillable = [%FILLABLE%];
+
+	// the fields that cannot be filled by insert/update
+	public $protected = ['%PK%'];
+
+	// expected created_at & updated_at column
+	public $timestamps = TRUE;
+
+	public function __construct()
+	{
+		// returns the result: as 'array' or as 'object'. the default value is 'object'
+		$this->return_as = 'array';
+
+		parent::__construct();
+		$this->abilities = permission([]);
+	}
+
+	###################################################################
+	#                                                                 #
+	#               Start custom function below                       #
+	#                                                                 #
+	###################################################################
+
+	public function get%CLASS_MODEL_NAME%ListDt()
+	{
+		$serverside = serversideDT();
+		$serverside->query("SELECT 
+		%COLUMN%,
+		`%PK%`
+		FROM {$this->table} 
+		ORDER BY {$this->primary_key} {$this->order}");
+
+		// $serverside->hide(''); // hides column from the output
+		%DATATABLE_EDIT%
+		$serverside->edit('%PK%', function ($data) {
+			$del = $edit = '';
+
+			if ($this->abilities[''])
+				$del = '<button class="btn btn-outline-danger btn-sm waves-effect" onclick="deleteRecord(' . $data[$this->primary_key] . ')" data-id="' . $data[$this->primary_key] . '" title="Delete"> <i class="tf-icons ti ti-trash ti-xs"></i> </button>';
+
+			if ($this->abilities[''])
+				$edit = '<button class="btn btn-outline-info btn-sm waves-effect" onclick="updateRecord(' . $data[$this->primary_key] . ')" title="Update"><i class="fa fa-edit"></i> </button>';
+
+			return "<center> $del $edit </center>";
+		});
+
+		echo $serverside->generate();
+	}
+}

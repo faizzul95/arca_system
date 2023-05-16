@@ -1,0 +1,21 @@
+{
+	"name": "arcav4",
+	"version": "1.0.0",
+	"description": "Attendance Record College Activity v4",
+	"private": true,
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.21.3",
+		"@babel/preset-env": "^7.20.2",
+		"grunt": "^1.6.1",
+		"grunt-babel": "^8.0.0",
+		"grunt-contrib-clean": "^2.0.1",
+		"grunt-contrib-concat": "^2.1.0",
+		"grunt-contrib-cssmin": "^4.0.0",
+		"grunt-contrib-uglify": "^5.2.2",
+		"grunt-contrib-watch": "^1.1.0",
+		"grunt-file-rev": "^1.0.2"
+	}
+}

@@ -1,0 +1,12 @@
+<IfModule authz_core_module>
+	Require all denied
+	<Location "/upload/event/temp_session_qr">
+		Require all granted
+	</Location>
+</IfModule>
+<IfModule !authz_core_module>
+	Deny from all
+	<Location "/upload/event/temp_session_qr">
+		Allow from all
+	</Location>
+</IfModule>

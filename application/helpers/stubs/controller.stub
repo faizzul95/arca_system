@@ -1,0 +1,54 @@
+<?php
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class %CLASS_CONTROLLER_NAME% extends Controller
+{
+	public function __construct()
+	{
+		parent::__construct();
+		model('%CLASS_NAME%_model', '%CLASS_NAME%M');
+	}
+
+	public function index()
+	{
+		render('folder_name/file_name',  [
+			'title' => '',
+			'currentSidebar' => '',
+			'currentSubSidebar' => NULL,
+			'permission' => NULL
+		]);
+	}
+
+	public function GetList%CLASS_NAME%()
+	{
+		echo $this->%CLASS_NAME%M->get%CLASS_NAME%ListDt();
+	}
+
+	public function Get%CLASS_NAME%ByID($id)
+	{
+		json($this->%CLASS_NAME%M::find(xssClean($id)));
+	}
+
+	public function Save()
+	{
+		$this->_rules();
+
+		if ($this->form_validation->run() === FALSE) {
+			validationErrMessage();
+		} else {
+			json($this->%CLASS_NAME%M::save($_POST));
+		}
+	}
+
+	public function Delete($id)
+	{
+		json($this->%CLASS_NAME%M::remove(xssClean($id)));
+	}
+
+	public function _rules()
+	{
+		$this->form_validation->reset_validation(); // reset validation
+		$this->form_validation->set_rules('PK_COLUMN_ID', 'PK ID', 'trim|integer');
+	}
+}
