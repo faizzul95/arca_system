@@ -208,11 +208,14 @@ if (!function_exists('recaptchaDiv')) {
 if (!function_exists('gapiConfig')) {
 	function gapiConfig()
 	{
+		$ci = ci();
+		$ci->load->config('google');
+
 		return json_encode([
-			'client_id' => '< YOUR-CLIENT-ID >',
-			'cookiepolicy' => 'single_host_origin',
+			'client_id' => $ci->config->item('client_id_auth'),
+			'cookiepolicy' => $ci->config->item('cookie_policy'),
 			'fetch_basic_profile' => true,
-			'redirect_uri' => '< YOUR-REDIRECT-URL >',
+			'redirect_uri' => $ci->config->item('redirect_uri_auth'),
 		]);
 	}
 }
