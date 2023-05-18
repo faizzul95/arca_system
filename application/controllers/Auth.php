@@ -80,7 +80,7 @@ class Auth extends CI_Controller
 							// if 2FA is enable
 							else {
 								$responseData = [
-									'resCode' => 400,
+									'resCode' => 200,
 									'message' => 'Two-factor authentication (2FA) is enable',
 									'verify' => true
 								];

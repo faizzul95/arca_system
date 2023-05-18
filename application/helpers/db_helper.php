@@ -97,6 +97,14 @@ if (!function_exists('db_name')) {
 	}
 }
 
+if (!function_exists('returnData')) {
+	function returnData($data = NULL, $code = 200)
+	{
+		http_response_code($code);
+		return $data;
+	}
+}
+
 if (!function_exists('insert')) {
 	function insert($table, $data, $enableXss = true)
 	{
